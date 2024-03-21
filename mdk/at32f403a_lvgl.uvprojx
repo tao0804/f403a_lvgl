@@ -338,7 +338,7 @@
               <MiscControls></MiscControls>
               <Define>AT32F403AVGT7,USE_STDPERIPH_DRIVER,AT_START_F403A_V1</Define>
               <Undefine></Undefine>
-              <IncludePath>..\source\core\inc;..\source\mcu\inc;..\source\core\core_support;..\source\core\device_support</IncludePath>
+              <IncludePath>..\source\core\inc;..\source\mcu\inc;..\source\core\core_support;..\source\core\device_support;..\source\midware;..\source\driver</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -540,7 +540,24 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>app</GroupName>
+          <GroupName>driver</GroupName>
+          <Files>
+            <File>
+              <FileName>lcd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\driver\lcd.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>midware</GroupName>
+          <Files>
+            <File>
+              <FileName>at32f403a_407_board.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\midware\at32f403a_407_board.c</FilePath>
+            </File>
+          </Files>
         </Group>
       </Groups>
     </Target>
