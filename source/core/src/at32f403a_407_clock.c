@@ -5,11 +5,11 @@
   **************************************************************************
   *                       Copyright notice & Disclaimer
   *
-  * The software Board Support Package (BSP) that is made available to
-  * download from Artery official website is the copyrighted work of Artery.
-  * Artery authorizes customers to use, copy, and distribute the BSP
-  * software and its related documentation for the purpose of design and
-  * development in conjunction with Artery microcontrollers. Use of the
+  * The software Board Support Package (BSP) that is made available to 
+  * download from Artery official website is the copyrighted work of Artery. 
+  * Artery authorizes customers to use, copy, and distribute the BSP 
+  * software and its related documentation for the purpose of design and 
+  * development in conjunction with Artery microcontrollers. Use of the 
   * software is governed by this copyright notice and the following disclaimer.
   *
   * THIS SOFTWARE IS PROVIDED ON "AS IS" BASIS WITHOUT WARRANTIES,
@@ -24,20 +24,20 @@
 
 /* includes ------------------------------------------------------------------*/
 #include "at32f403a_407_clock.h"
+// #include "at32f403a_407_board.h"
 
 /**
   * @brief  system clock config program
   * @note   the system clock is configured as follow:
-  *         system clock (sclk)   = hext / 2 * pll_mult
-  *         system clock source   = pll (hext)
-  *         - hext                = HEXT_VALUE
+  *         system clock (sclk)   = hick / 12 * pll_mult
+  *         system clock source   = HICK_VALUE
   *         - sclk                = 240000000
   *         - ahbdiv              = 1
   *         - ahbclk              = 240000000
-  *         - apb2div             = 2
-  *         - apb2clk             = 120000000
   *         - apb1div             = 2
   *         - apb1clk             = 120000000
+  *         - apb2div             = 2
+  *         - apb2clk             = 120000000
   *         - pll_mult            = 60
   *         - pll_range           = GT72MHZ (greater than 72 mhz)
   * @param  none
@@ -48,18 +48,16 @@ void system_clock_config(void)
   /* reset crm */
   crm_reset();
 
-  crm_clock_source_enable(CRM_CLOCK_SOURCE_HEXT, TRUE);
+  /* enable hick */
+  crm_clock_source_enable(CRM_CLOCK_SOURCE_HICK, TRUE);
 
-   /* wait till hext is ready */
-  while(crm_hext_stable_wait() == ERROR)
+   /* wait till hick is ready */
+  while(crm_flag_get(CRM_HICK_STABLE_FLAG) != SET)
   {
   }
 
   /* config pll clock resource */
-  crm_pll_config(CRM_PLL_SOURCE_HEXT_DIV, CRM_PLL_MULT_60, CRM_PLL_OUTPUT_RANGE_GT72MHZ);
-
-  /* config hext division */
-  crm_hext_clock_div_set(CRM_HEXT_DIV_2);
+  crm_pll_config(CRM_PLL_SOURCE_HICK, CRM_PLL_MULT_60, CRM_PLL_OUTPUT_RANGE_GT72MHZ);
 
   /* enable pll */
   crm_clock_source_enable(CRM_CLOCK_SOURCE_PLL, TRUE);
@@ -72,10 +70,10 @@ void system_clock_config(void)
   /* config ahbclk */
   crm_ahb_div_set(CRM_AHB_DIV_1);
 
-  /* config apb2clk, the maximum frequency of APB1/APB2 clock is 120 MHz */
+  /* config apb2clk */
   crm_apb2_div_set(CRM_APB2_DIV_2);
 
-  /* config apb1clk, the maximum frequency of APB1/APB2 clock is 120 MHz  */
+  /* config apb1clk */
   crm_apb1_div_set(CRM_APB1_DIV_2);
 
   /* enable auto step mode */
@@ -89,10 +87,11 @@ void system_clock_config(void)
   {
   }
 
+  // delay_init();
+
   /* disable auto step mode */
   crm_auto_step_mode_enable(FALSE);
 
   /* update system_core_clock global variable */
   system_core_clock_update();
 }
-

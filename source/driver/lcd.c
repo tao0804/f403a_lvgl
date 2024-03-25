@@ -103,6 +103,7 @@ void TFT_full(unsigned int color)
 
 void TFT_init(void)				////ST7789V2
   {
+    SPI_BLK_0;	// tao:给我亮
 	SPI_SCK_1;			//特别注意！！
 	SPI_RST_0;
 	delay_ms(1000);

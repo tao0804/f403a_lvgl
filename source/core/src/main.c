@@ -40,32 +40,36 @@
   * @retval none
   */
 
+// tao
+// #define  AT32F403Axx
+
 const unsigned char  *point;
 
 void gpio_config(void)
 {
-	gpio_init_type gpio_init_struct_a, gpio_init_struct_b;	
+	gpio_init_type gpio_init_struct;	
 	/* enable the gpioa clock */
-	crm_periph_clock_enable(CRM_GPIOA_PERIPH_CLOCK, TRUE);	
+	crm_periph_clock_enable(CRM_GPIOA_PERIPH_CLOCK, TRUE);
+	crm_periph_clock_enable(CRM_GPIOB_PERIPH_CLOCK, TRUE);	
 	/* set default parameter */
-	gpio_default_para_init(&gpio_init_struct_a);	
+	gpio_default_para_init(&gpio_init_struct);	
 	/* configure the gpio */
-	gpio_init_struct_a.gpio_drive_strength = GPIO_DRIVE_STRENGTH_STRONGER;
-	gpio_init_struct_a.gpio_out_type  = GPIO_OUTPUT_PUSH_PULL;
-	gpio_init_struct_a.gpio_mode = GPIO_MODE_OUTPUT;
-	gpio_init_struct_a.gpio_pins = GPIO_PINS_9 | GPIO_PINS_8;
-	gpio_init_struct_a.gpio_pull = GPIO_PULL_NONE;
-	gpio_init(GPIOA, &gpio_init_struct_a);
+	gpio_init_struct.gpio_drive_strength = GPIO_DRIVE_STRENGTH_STRONGER;
+	gpio_init_struct.gpio_out_type  = GPIO_OUTPUT_PUSH_PULL;
+	gpio_init_struct.gpio_mode = GPIO_MODE_OUTPUT;
+	gpio_init_struct.gpio_pins = GPIO_PINS_9 | GPIO_PINS_8 | GPIO_PINS_10;
+	gpio_init_struct.gpio_pull = GPIO_PULL_NONE;
+	gpio_init(GPIOA, &gpio_init_struct);
 	
-	crm_periph_clock_enable(CRM_GPIOB_PERIPH_CLOCK, TRUE);
-	gpio_default_para_init(&gpio_init_struct_b);
+	
+	gpio_default_para_init(&gpio_init_struct);
 
-	gpio_init_struct_b.gpio_drive_strength = GPIO_DRIVE_STRENGTH_STRONGER;
-	gpio_init_struct_b.gpio_out_type  = GPIO_OUTPUT_PUSH_PULL;
-	gpio_init_struct_b.gpio_mode = GPIO_MODE_OUTPUT;
-	gpio_init_struct_b.gpio_pins = GPIO_PINS_12 | GPIO_PINS_13 | GPIO_PINS_15;
-	gpio_init_struct_b.gpio_pull = GPIO_PULL_NONE;
-	gpio_init(GPIOB, &gpio_init_struct_b);
+	gpio_init_struct.gpio_drive_strength = GPIO_DRIVE_STRENGTH_STRONGER;
+	gpio_init_struct.gpio_out_type  = GPIO_OUTPUT_PUSH_PULL;
+	gpio_init_struct.gpio_mode = GPIO_MODE_OUTPUT;
+	gpio_init_struct.gpio_pins = GPIO_PINS_12 | GPIO_PINS_13 | GPIO_PINS_15;
+	gpio_init_struct.gpio_pull = GPIO_PULL_NONE;
+	gpio_init(GPIOB, &gpio_init_struct);
 }
 
 /**
@@ -81,30 +85,31 @@ int main(void)
 	system_clock_config();
 
 	gpio_config();
+
+	delay_init();
+
 	// SPI_BLK_1;
 	SPI_CS_0;	// tao:low enable
 	SPI_SCK_0;
 	TFT_init();
 	while(1)
 	{
-		
-	TFT_full(RED);
-	delay_ms(10000);
-	TFT_full(GREEN);
-	delay_ms(2000);
-	TFT_full(BLUE);
-	delay_ms(2000);
-	TFT_clear();
-	Picture_Display(point);
-	delay_ms(5000);
-    display_char16_16(20,160,BLUE,0);
-	display_char16_16(36,160,GREEN,1);
-	display_char16_16(60,160,RED,2);
-	display_char16_16(76,160,BLUE,3);
-	display_char16_16(92,160,GREEN,4);
-	display_char16_16(118,160,BLUE,5);
-	display_char16_16(134,160,RED,6);
-	delay_ms(10000);
-
+		TFT_full(RED);
+		delay_ms(10000);
+		TFT_full(GREEN);
+		delay_ms(2000);
+		TFT_full(BLUE);
+		delay_ms(2000);
+		TFT_clear();
+		Picture_Display(point);
+		delay_ms(5000);
+		display_char16_16(20,160,BLUE,0);
+		display_char16_16(36,160,GREEN,1);
+		display_char16_16(60,160,RED,2);
+		display_char16_16(76,160,BLUE,3);
+		display_char16_16(92,160,GREEN,4);
+		display_char16_16(118,160,BLUE,5);
+		display_char16_16(134,160,RED,6);
+		delay_ms(10000);
 	}
 }

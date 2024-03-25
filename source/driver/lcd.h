@@ -50,6 +50,8 @@ extern const unsigned char  picture_tab[PIC_NUM];
 #define SPI_CS_0   GPIOA-> odt &= ~GPIO_PINS_8			// 设置/WR 或CS接口到PA8
 #define SPI_CS_1   GPIOA-> odt |= GPIO_PINS_8
 
+#define SPI_BLK_0   GPIOA-> odt &= ~GPIO_PINS_10
+
 
 
 void TFT_clear(void);

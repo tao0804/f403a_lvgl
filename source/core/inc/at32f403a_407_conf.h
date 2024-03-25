@@ -5,11 +5,11 @@
   **************************************************************************
   *                       Copyright notice & Disclaimer
   *
-  * The software Board Support Package (BSP) that is made available to
-  * download from Artery official website is the copyrighted work of Artery.
-  * Artery authorizes customers to use, copy, and distribute the BSP
-  * software and its related documentation for the purpose of design and
-  * development in conjunction with Artery microcontrollers. Use of the
+  * The software Board Support Package (BSP) that is made available to 
+  * download from Artery official website is the copyrighted work of Artery. 
+  * Artery authorizes customers to use, copy, and distribute the BSP 
+  * software and its related documentation for the purpose of design and 
+  * development in conjunction with Artery microcontrollers. Use of the 
   * software is governed by this copyright notice and the following disclaimer.
   *
   * THIS SOFTWARE IS PROVIDED ON "AS IS" BASIS WITHOUT WARRANTIES,
@@ -29,10 +29,9 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-
+  
 /**
-  * @brief in the following line adjust the value of high speed external crystal (hext)
+  * @brief in the following line adjust the value of high speed exernal crystal (hext)
   * used in your application
   *
   * tip: to avoid modifying this file each time you need to use different hext, you
@@ -40,16 +39,15 @@ extern "C" {
   *
   */
 #if !defined  HEXT_VALUE
-#define HEXT_VALUE               ((uint32_t)8000000) /*!< value of the high speed external crystal in hz */
+#define HEXT_VALUE               ((uint32_t)8000000) /*!< value of the high speed exernal crystal in hz */
 #endif
 
 /**
-  * @brief in the following line adjust the high speed external crystal (hext) startup
+  * @brief in the following line adjust the high speed exernal crystal (hext) startup
   * timeout value
   */
-#define HEXT_STARTUP_TIMEOUT             ((uint16_t)0x3000)  /*!< time out for hext start up */
-#define HICK_VALUE                       ((uint32_t)8000000) /*!< value of the high speed internal clock in hz */
-#define LEXT_VALUE                       ((uint32_t)32768)   /*!< value of the low speed external clock in hz */
+#define HEXT_STARTUP_TIMEOUT     ((uint16_t)0x3000) /*!< time out for hext start up */
+#define HICK_VALUE               ((uint32_t)8000000) /*!< value of the high speed internal clock in hz */
 
 /* module define -------------------------------------------------------------*/
 #define CRM_MODULE_ENABLED
@@ -154,7 +152,7 @@ extern "C" {
 #ifdef EMAC_MODULE_ENABLED
 #include "at32f403a_407_emac.h"
 #endif
-
+  
 #ifdef __cplusplus
 }
 #endif
