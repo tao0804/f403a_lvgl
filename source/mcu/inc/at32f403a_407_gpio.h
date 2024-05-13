@@ -308,6 +308,7 @@ typedef enum
 
 /**
   * @brief gpio output type
+  * tao:at32无法设置输出上拉或者下拉
   */
 typedef enum
 {
